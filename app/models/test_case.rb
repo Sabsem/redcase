@@ -45,10 +45,19 @@ class TestCase < ActiveRecord::Base
 		remove_orphaned(all_issues)
 	end
 
+	def self.is_test_case_tracker(issue)
+		issue.tracker.id == Setting.plugin_redcase['testcase_tracker_id'].to_i
+	end
+
+	def self.is_closed_test_case(issue)
+		issue.status.id == Setting.plugin_redcase['testcase_close_status_id'].to_i
+	end
+
 	def self.remove_orphaned(issues)
 		missed_tc = issues.collect { |issue|
 			tc = issue.test_case
-			tc if (tc && (issue.tracker.name != 'Test case'))
+			# tc if (tc && (issue.tracker.name != 'Test case'))
+			tc if (tc && !is_test_case_tracker(issue))
 		}.compact
 		missed_tc.each { |tc| tc.destroy }
 	end
@@ -57,7 +66,8 @@ class TestCase < ActiveRecord::Base
 	# ".Unsorted" test suite.
 	def self.move_unsorted(issues, project)
 		unlinked_issues = issues.select { |issue|
-			(issue.tracker.name == 'Test case') && issue.test_case.nil?
+			# (issue.tracker.name == 'Test case') && issue.test_case.nil?
+			is_test_case_tracker(issue) && issue.test_case.nil?
 		}
 		unlinked_issues.each { |issue|
 			x = TestCase.create(
@@ -73,7 +83,8 @@ class TestCase < ActiveRecord::Base
 		# Move all test cases with status "Obsolete" to ".Obsolete" test suite
 		# if they aren't already there.
 		obsoleted_issues = issues.select { |issue|
-			(issue.tracker.name == 'Test case') && (issue.status.name == 'Obsolete')
+			# (issue.tracker.name == 'Test case') && (issue.status.name == 'Obsolete')
+			is_test_case_tracker(issue) && is_closed_test_case(issue)
 		}
 		obsoleted_issues.each { |issue|
 			if !issue.test_case.nil?
@@ -157,7 +168,8 @@ class TestCase < ActiveRecord::Base
 			},
 			'type'      => 'case',
 			'state'     => {
-				'disabled' => (issue.status.name != 'In Progress')
+				# 'disabled' => (issue.status.name != 'In Progress')
+				'disabled' => (issue.status.id != Setting.plugin_redcase['testcase_doing_status_id'].to_i)
 			}
 		}
 	end

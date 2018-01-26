@@ -32,6 +32,8 @@
 <script type="text/javascript">
 	// NonConflict jQuery
 	var jQuery2 = $.noConflict(true);
+	// Add by ZK 2018.1.17
+	var inProgressId = <%= Setting.plugin_redcase['testcase_doing_status_id'] %>;
 
 	function getIssueUrl(issueId) {
 		return '<%= issue_path('issue_id') %>'.replace('issue_id', issueId);
@@ -58,12 +60,12 @@
 	jsCanEdit = <%= User.current.allowed_to?(:edit_test_cases, @project) != false %>;
 </script>
 
-<% html_title "Test cases" %>
+<% html_title l(:label_test_case) %>
 
-<h2>Test cases
+<h2><%= l(:label_test_case) %>
     <!-- Temporary plugin version output (only for testing) -->
     <span style="color: gray">
-        (Plugin version: <%= Redmine::Plugin.all.detect { |x| x.name == 'Redcase' }.version %>)
+        v<%= Redmine::Plugin.all.detect { |x| x.name == 'Redcase' }.version %>
     </span>
 </h2>
 

@@ -1,3 +1,4 @@
+require 'csv'
 
 class Excel_Exporter
 
