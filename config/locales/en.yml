@@ -24,3 +24,4 @@ en:
   label_full_report             : "Full Report"
   label_test_case_specification : "Test case specification"
   label_button_save             : "save"
+  label_test_case               : "Test case"

@@ -57,12 +57,12 @@
 	jsCanEdit = <%= User.current.allowed_to?(:edit_test_cases, @project) != false %>;
 </script>
 
-<% html_title "Test cases" %>
+<% html_title l(:label_test_case) %>
 
-<h2>Test cases
+<h2><%= l(:label_test_case) %>
     <!-- Temporary plugin version output (only for testing) -->
     <span style="color: gray">
-        (Plugin version: <%= Redmine::Plugin.all.detect { |x| x.name == 'Redcase' }.version %>)
+        v<%= Redmine::Plugin.all.detect { |x| x.name == 'Redcase' }.version %>
     </span>
 </h2>
 
