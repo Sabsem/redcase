@@ -126,7 +126,7 @@ Redmine::Plugin.register :redcase do
 				tracker_exists = p.trackers.any? { |t| (t.name == 'Test case') }
 				(can_view || can_edit) && tracker_exists
 			},
-			:caption => 'Test cases',
+			:caption => :label_test_case,
 			:after => :new_issue
 		}
 
