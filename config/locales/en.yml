@@ -25,3 +25,7 @@ en:
   label_test_case_specification : "Test case specification"
   label_button_save             : "save"
   label_test_case               : "Test case"
+  label_test_case_tracker       : "Tracker of test case"
+  label_test_case_new_status    : "New status of test case"
+  label_test_case_doing_status  : "In progress status of test case"
+  label_test_case_close_status  : "Closed status of test case"

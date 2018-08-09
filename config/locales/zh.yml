@@ -22,3 +22,7 @@ zh:
   label_test_case_specification       : "测试用例说明书"
   label_button_save                   : "保存"
   label_test_case                     : "测试用例"
+  label_test_case_tracker             : "测试用例跟踪标签："
+  label_test_case_new_status          : "测试用例新建状态："
+  label_test_case_doing_status        : "测试用例进行中状态："
+  label_test_case_close_status        : "测试用例已关闭状态："

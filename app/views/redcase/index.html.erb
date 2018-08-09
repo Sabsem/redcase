@@ -31,6 +31,8 @@
 <script type="text/javascript">
 	// NonConflict jQuery
 	var jQuery2 = $.noConflict(true);
+	// Add by ZK 2018.1.17
+	var inProgressId = <%= Setting.plugin_redcase['testcase_doing_status_id'] %>;
 
 	function getIssueUrl(issueId) {
 		return '<%= issue_path('issue_id') %>'.replace('issue_id', issueId);
