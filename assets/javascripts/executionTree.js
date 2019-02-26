@@ -78,15 +78,19 @@ var RedcaseExecutionTree = function($) {
 			}
 		});
 		tree.on('select_node.jstree', selectionChange);
+		console.log('In build\n');
 		tree = $.jstree.reference(tree);
 	};
 
 	var selectionChange = function(event, params) {
+		console.log('In selectionChange\n');
 		var node = params.node;
 		var edit = $('#test-case-edit');
 		edit.hide();
 		$('#all-results-d').hide();
 		if (node.original.type == 'case') {
+			console.log('In if statement\n');
+			console.log("node obj: "+node.original.issue_id);
 			var apiParms = $.extend(
 				{},
 				Redcase.api.testCase.index(), {
@@ -94,21 +98,46 @@ var RedcaseExecutionTree = function($) {
 						"object_id": node.original.issue_id
 					},
 					success: function(data) {
-						currentIssueId = data.issue_id;
+						console.log('In success: function\n');
+						console.log (data);
+						console.log('issue id: '+data.test_casej.issue_id);
+						console.log('desc: '+data.test_casej.desc);
+						console.log('text: '+data.test_casej.text);
+						currentIssueId = data.test_casej.issue_id;
 						$('#exec_descr_id').toggle(
-							data.desc !== undefined
+							data.test_casej.desc !== undefined
 						);
 						var desc = $('#test-case-desc');
 						var subj = $('#test-case-subj');
-						var issueUrl = getIssueUrl(data.issue_id);
+						var relat= $('#test-case-related');
+						var relateHtml="";
+						var issueUrl = getIssueUrl(data.test_casej.issue_id);
 						subj.html(
 							'<a href="'
 							+ issueUrl
 							+ '">'
-							+ data.text
+							+ data.test_casej.text
 							+ '</a>'
 						);
-						desc.html(data.desc);
+						desc.html(data.test_casej.desc);
+						relateHtml = relateHtml + '<p><b>Related Issues:</b></p>';
+						relateHtml= relateHtml + '<table id="executionrelatedissues" class="list issues odd-even">' + '<tbody>';
+						jQuery.each(data.relation_casej, function(){
+							var testIssueUrl= getIssueUrl(this.issue_to_id);
+							relateHtml=relateHtml+ '<tr class="executionissues"><td style="width: 25%; border-style: hidden"><a href='
+							+ testIssueUrl
+							+ '">'
+							+ this.name
+							+ '#' + this.issue_to_id
+							+ '</a></td>'
+							+ '<td style="width: 50%; border-style: hidden">'+ this.subject +'</td>'
+							+ '<td style="width: 25%; border-style: hidden">'+ this.status + '</td></tr>'
+
+						});
+						relateHtml = relateHtml+'</tbody></table>'
+						relat.html(relateHtml);
+						var teststr = JSON.stringify(data.test_casej, null, 2);
+						console.log('selection change: '+teststr);
 						edit.show();
 						var results = $('#results');
 						results.val('Passed');
@@ -142,6 +171,7 @@ var RedcaseExecutionTree = function($) {
 									"issue_id": node.original.issue_id
 								},
 								success: function(data) {
+									console.log('In second api function\n');
 									$('#test-case-attach').toggle(
 										data.length > 0
 									);

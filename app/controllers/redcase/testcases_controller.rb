@@ -5,9 +5,30 @@ class Redcase::TestcasesController < ApplicationController
 	before_filter :find_project, :authorize
 
 	def index
-		# TODO: What if there is none?
+		# TODO: What if there is none? r.issue_from_id, r.issue_to_id, t.name
+		sql = %{
+				Select r.issue_from_id, r.issue_to_id, t.name, i.subject, s.name As status  
+				From issue_relations r
+				Left Outer Join issues i On r.issue_to_id=i.id
+				Left Outer Join trackers t On i.tracker_id=t.id
+				Left Outer Join issue_statuses s on i.status_id=s.id
+				Where r.issue_from_id=#{params[:object_id]};
+			}
 		test_case = TestCase.where({ issue_id: params[:object_id] }).first
-		render :json => test_case.to_json(view_context)
+		relation_case = IssueRelation.where({issue_from_id: test_case.issue_id}, {relation_type: 'relates' })
+		#relation_join = IssueRelation.left_outer_joins(:issues).distinct.select(issuerelations.*, issues.)
+		relation_join = ActiveRecord::Base.connection.execute(sql)
+		result = {}
+		puts 'test'
+		puts test_case.inspect
+		puts relation_join.inspect
+		#puts relation_case.to_json(view_context)
+		puts result
+		puts 'test2'
+		result[:test_casej]=test_case.to_json(view_context)
+		result[:relation_casej]=relation_join
+		puts result
+		render :json => result
 	end
 
 	def copy

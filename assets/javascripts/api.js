@@ -1,6 +1,6 @@
 
 var RedcaseApi = function($) {
-
+	console.log('In api file\n');
 	var log = LogManager.getLog('redcase.api');
 
 	this.context = 'redcase/';
