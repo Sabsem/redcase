@@ -5,7 +5,7 @@ require 'project_patch'
 require 'version_patch'
 require 'user_patch'
 require 'redcase_override'
-
+require 'redcase/hooks/view_redcase_extension_context_menu_hook'
 Redmine::Plugin.register :redcase do
 
 	name 'Redcase'

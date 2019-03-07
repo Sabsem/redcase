@@ -78,19 +78,15 @@ var RedcaseExecutionTree = function($) {
 			}
 		});
 		tree.on('select_node.jstree', selectionChange);
-		console.log('In build\n');
 		tree = $.jstree.reference(tree);
 	};
 
 	var selectionChange = function(event, params) {
-		console.log('In selectionChange\n');
 		var node = params.node;
 		var edit = $('#test-case-edit');
 		edit.hide();
 		$('#all-results-d').hide();
 		if (node.original.type == 'case') {
-			console.log('In if statement\n');
-			console.log("node obj: "+node.original.issue_id);
 			var apiParms = $.extend(
 				{},
 				Redcase.api.testCase.index(), {
@@ -98,11 +94,6 @@ var RedcaseExecutionTree = function($) {
 						"object_id": node.original.issue_id
 					},
 					success: function(data) {
-						console.log('In success: function\n');
-						console.log (data);
-						console.log('issue id: '+data.test_casej.issue_id);
-						console.log('desc: '+data.test_casej.desc);
-						console.log('text: '+data.test_casej.text);
 						currentIssueId = data.test_casej.issue_id;
 						$('#exec_descr_id').toggle(
 							data.test_casej.desc !== undefined
@@ -135,9 +126,7 @@ var RedcaseExecutionTree = function($) {
 
 						});
 						relateHtml = relateHtml+'</tbody></table>'
-						relat.html(relateHtml);
-						var teststr = JSON.stringify(data.test_casej, null, 2);
-						console.log('selection change: '+teststr);
+						relat.html(relateHtml);						
 						edit.show();
 						var results = $('#results');
 						results.val('Passed');

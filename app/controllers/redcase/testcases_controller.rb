@@ -16,18 +16,10 @@ class Redcase::TestcasesController < ApplicationController
 			}
 		test_case = TestCase.where({ issue_id: params[:object_id] }).first
 		relation_case = IssueRelation.where({issue_from_id: test_case.issue_id}, {relation_type: 'relates' })
-		#relation_join = IssueRelation.left_outer_joins(:issues).distinct.select(issuerelations.*, issues.)
 		relation_join = ActiveRecord::Base.connection.execute(sql)
 		result = {}
-		puts 'test'
-		puts test_case.inspect
-		puts relation_join.inspect
-		#puts relation_case.to_json(view_context)
-		puts result
-		puts 'test2'
 		result[:test_casej]=test_case.to_json(view_context)
 		result[:relation_casej]=relation_join
-		puts result
 		render :json => result
 	end
 
@@ -70,10 +62,13 @@ class Redcase::TestcasesController < ApplicationController
 				test_case.test_suite = TestSuite.get_obsolete(@project)
 			end
 		end
-
-		if params[:result].nil?
+		if params[:contextHook]=='yes'
+			test_case.save
+			redirect_to project_issues_path(params[:project_id])
+		elsif params[:result].nil?
 			test_case.save
 			render :json => {:success => success}
+
 		else
 			execute(test_case)
 		end

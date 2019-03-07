@@ -17,3 +17,4 @@ end
 get 'projects/:id/redcase', :to => 'redcase#index'
 get 'projects/:id/redcase/get_attachment_urls', :to => 'redcase#get_attachment_urls'
 
+#match "/project/:project_id/redcase/:id/:parent_id/:source_exec_id/:dest_exec_id/:remove_from_exec_id/:obsolesce", :controller=> "testcases", :action=> "update", via: :all
