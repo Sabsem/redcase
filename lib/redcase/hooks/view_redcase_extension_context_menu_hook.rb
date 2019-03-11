@@ -10,7 +10,6 @@ module Redcase
 				}
 				tracks = ActiveRecord::Base.connection.execute(sql)
 				if tracks[0]["name"] == "Test case"
-					puts context[:issues][0].inspect
 					listItems = ""
 					tsuites=Array.new()
 					testsuite = TestSuite.find_by_project_id(context[:issues][0][:project_id]);
@@ -30,8 +29,10 @@ module Redcase
 						end
 					end
 					tsuites.each do |item|
-						pathurl = project_redcase_testcase_path(context[:issues][0][:project_id], context[:issues][0][:id], :parent_id=>item["id"], :source_exec_id=>nil, :dest_exec_id=>nil, :remove_from_exec_id=>nil, :obsolesce=>nil, :contextHook=>'yes')
-						listItems=listItems+"<li><a class rel='nofollow' data-method='patch' href='#{pathurl}'>#{item["name"]}</a></li>"
+						if item["name"]!=".Obsolete"
+							pathurl = project_redcase_testcase_path(context[:issues][0][:project_id], context[:issues][0][:id], :parent_id=>item["id"], :source_exec_id=>nil, :dest_exec_id=>nil, :remove_from_exec_id=>nil, :obsolesce=>nil, :contextHook=>'yes')
+							listItems=listItems+"<li><a class rel='nofollow' data-method='patch' href='#{pathurl}'>#{item["name"]}</a></li>"
+						end
 					end
 
 					return %{

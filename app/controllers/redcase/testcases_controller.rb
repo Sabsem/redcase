@@ -97,6 +97,10 @@ class Redcase::TestcasesController < ApplicationController
 			executor: User.current,
 			environment: environment
 		)
+		theIss = Issue.find(params[:id])
+		theIss.init_journal(User.current)
+		theIss.current_journal[:notes]=comment
+		theIss.save
 		render :json => ExecutionJournal
 			.order('created_on desc')
 			.where({ test_case_id: test_case.id })
