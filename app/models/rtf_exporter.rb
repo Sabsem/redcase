@@ -1,4 +1,3 @@
-
 class Rtf_Exporter
 
 	unloadable
@@ -36,7 +35,7 @@ class Rtf_Exporter
 	def self.writeTitle(document, project_name, suite_id)
 		document.paragraph(@@pStyles['HEADER']) do |p|
 			p.apply(@@cStyles['HEADER']) do |s|
-				s << 'Test specification for'
+				s << ' Спецификация тестового сценария '
 			end
 		end
 		document.paragraph(@@pStyles['HEADER']) do |p|
@@ -65,16 +64,16 @@ class Rtf_Exporter
 					when 0
 						test_case = test_cases[i / 5]
 						r[0].apply(@@cStyles['CELL']) { |cell|
-							cell << ' ID '
+							cell << ' Номер:'
 							cell << test_case.issue.id
 						}
 						r[1].apply(@@cStyles['CELL']) { |cell|
-							cell << ' Title: '
+							cell << ' Тема: '
 						}
 						r[1] << test_case.issue.subject
 					when 1
 						r[0].apply(@@cStyles['CELL']) { |cell|
-							cell << ' Description:'
+							cell << ' Описание:'
 							2.times { cell.line_break }
 						}
 						count = 0
@@ -85,12 +84,12 @@ class Rtf_Exporter
 						}
 					when 2
 						r[0].apply(@@cStyles['CELL']) { |cell|
-							cell << ' Priority: '
+							cell << ' Приоритет: '
 						}
 						r[0] << test_case.issue.priority.name
 					when 3
 						r[0].apply(@@cStyles['CELL']) { |cell|
-							cell << ' Created by: '
+							cell << ' Автор: '
 						}
 						r[0] << test_case.issue.author.name
 					when 4
