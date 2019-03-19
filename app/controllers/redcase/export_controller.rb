@@ -2,7 +2,7 @@
 class Redcase::ExportController < ApplicationController
 
 	unloadable
-	before_filter :find_project, :authorize
+	before_action :find_project, :authorize
 
 	def index
 		project_name = @project.name.gsub(' ', '_');
