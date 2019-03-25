@@ -20,6 +20,7 @@ class Redcase::TestcasesController < ApplicationController
 		result = {}
 		result[:test_casej]=test_case.to_json(view_context)
 		result[:relation_casej]=relation_join
+		result[:project_j]=@project
 		render :json => result
 	end
 

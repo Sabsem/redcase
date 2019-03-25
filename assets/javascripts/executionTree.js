@@ -101,6 +101,8 @@ var RedcaseExecutionTree = function($) {
 						var desc = $('#test-case-desc');
 						var subj = $('#test-case-subj');
 						var relat= $('#test-case-related');
+						var attachFormUri = "redcase/executionjournals/"+currentIssueId;
+						document.getElementById("extensionAttachForm").action = attachFormUri;
 						var relateHtml="";
 						var issueUrl = getIssueUrl(data.test_casej.issue_id);
 						subj.html(

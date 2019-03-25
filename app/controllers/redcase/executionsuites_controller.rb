@@ -35,7 +35,6 @@ class Redcase::ExecutionsuitesController < ApplicationController
 		unless params[:environment].nil?
 			environment = ExecutionEnvironment.find(params[:environment])	
 		end
-	
 		render :json => ExecutionSuite.find(params[:id]).to_json(
 			view_context, version, environment
 		)
