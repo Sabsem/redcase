@@ -18,9 +18,15 @@ class Redcase::TestcasesController < ApplicationController
 		relation_case = IssueRelation.where({issue_from_id: test_case.issue_id}, {relation_type: 'relates' })
 		relation_join = ActiveRecord::Base.connection.execute(sql)
 		result = {}
+		curr_user = {}
+		curr_user[:id]=User.current.id
+		thename = User.current.firstname + " " +User.current.lastname
+		curr_user[:name]=thename
+		puts curr_user[:name]
 		result[:test_casej]=test_case.to_json(view_context)
 		result[:relation_casej]=relation_join
 		result[:project_j]=@project
+		result[:current_userj]=curr_user
 		render :json => result
 	end
 

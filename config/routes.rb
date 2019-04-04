@@ -7,7 +7,7 @@ resources :projects do
 			post 'copy', on: :member
 		end
 		resources :executionsuites, only: [:index, :update, :create, :destroy, :show]
-		resources :executionjournals, only: [:index,:update]
+		resources :executionjournals, only: [:index,:edit,:update]
 		resources :export, only: [:index]
 		resources :graph, only: [:show]
 		resources :combos, only: [:index]

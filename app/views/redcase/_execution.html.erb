@@ -29,7 +29,7 @@
 					Attach File: 
 					<%= form_tag(project_redcase_executionjournal_path(1,1), {:method=> 'patch', :id=> "extensionAttachForm"}) do%>
 						<%= render :partial => 'attachments/form', :locals => {:container => @issue} %>
-						<%= hidden_field_tag "extension_attach", "extension" %>
+						<%= hidden_field_tag "extension_form", "extension" %>
 						<%= submit_tag("Submit") %>
 					<% end %>
 				</div>
@@ -65,11 +65,17 @@
 				<div>
 					<%= link_to l(:label_issue_new), _new_project_issue_path(@project), :class => 'icon icon-add new-issue' %>
 					<div id="testingissue"></div>
+
+					
 				</div>
 			</div>
 		</td>
 	</tr>
 </table>
+<div id="executionjournalediting" style="display:none;">
+	<%= render(:partial=>'executionjournal_edit')%>
+	<a href="#" onclick='journalEditorDisplay("none"); return false;'>testcancel</a>
+</div>
 <table id='all-results-d'
        width="100%"
 	   style="table-layout: fixed; display: none">
@@ -79,6 +85,7 @@
 				<legend class="redcase-header">
 					<%= l('label_history') %>
 				</legend>
+				
 				<div id="all-results"></div>
 			</fieldset>
 		</td>

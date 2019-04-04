@@ -1,0 +1,44 @@
+<%= form_tag(project_redcase_executionjournal_path(1,1), {:method=>'patch',:id=>"extensionJournalForm"}) do %>
+Date: 
+<div id="executionjournal_edit_date">
+</div><br>
+Result:
+<div id="executionjournal_edit_result">
+	<%=
+					select_tag(
+						'results_edit',
+						options_for_select(
+							ExecutionResult
+								.order('order_number asc')
+								.collect { |res| res.name }
+						)
+					)
+				%>
+</div><br>
+Comments:
+<div id="executionjournal_edit_comment">
+	<%=
+					text_area_tag(
+						'exec_comment_edit',
+						nil,
+						:rows => 4,
+						:style => 'width: 40%'
+					)
+				%>
+</div><br>
+Executor: 
+<div id="executionjournal_edit_executor">
+</div><br>
+Enviornment:
+<div id="executionjournal_edit_environment">
+</div><br>
+Version:
+<div id="executionjournal_edit_version">
+</div><br> 
+
+
+<%= hidden_field_tag "extension_date", "" %>
+<%= hidden_field_tag "extension_form", "editing" %>
+<%= hidden_field_tag "extension_user_id", User.current.id%>
+<%=submit_tag('submit') %>
+<% end %>

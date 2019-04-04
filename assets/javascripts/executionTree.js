@@ -94,6 +94,9 @@ var RedcaseExecutionTree = function($) {
 						"object_id": node.original.issue_id
 					},
 					success: function(data) {
+						console.log("selection change");
+						console.log(data);
+						currentUser = data.current_userj;
 						currentIssueId = data.test_casej.issue_id;
 						$('#exec_descr_id').toggle(
 							data.test_casej.desc !== undefined
@@ -145,6 +148,10 @@ var RedcaseExecutionTree = function($) {
 										data.length > 0
 									);
 									if (data.length > 0) {
+										console.log(data);
+											//if (currentUser.name==data[i].executor){
+										console.log("Before history");
+										console.log(currentUser);
 										var txt = getHistory(data);
 										$('#all-results').html(txt);
 									}
@@ -163,6 +170,7 @@ var RedcaseExecutionTree = function($) {
 								},
 								success: function(data) {
 									console.log('In second api function\n');
+									console.log(data);
 									$('#test-case-attach').toggle(
 										data.length > 0
 									);
@@ -200,10 +208,14 @@ var RedcaseExecutionTree = function($) {
 	};
 
 	var getHistory = function(data) {
+		console.log("gethistory");
+		console.log(data);
+		console.log("current user");
+		console.log(currentUser);
 		var unique = {};
-		var txt = "<table class='redcase-row' width='100%'>"
+		var txt = "<table id='redcase-history-table' class='redcase-row' width='100%'>"
 			+ "<tr style='font-weight: bold; background-color: #eeeeee'>"
-			+ "<td>date</td>"
+			+ "<td>date (UTC)</td>"
 			+ "<td>result</td>"
 			+ "<td>comments</td>"
 			+ "<td>executor</td>"
@@ -242,7 +254,11 @@ var RedcaseExecutionTree = function($) {
 				+ ">";
 			txt += "<td>" + data[i].created_on + "</td>";
 			txt += "<td>" + data[i].result + "</td>";
-			txt += "<td>" + data[i].comment + "</td>";
+			txt += "<td><span id='comment-history-"+i+"'>" + data[i].comment+"</span>";
+			if(currentUser.name == data[i].executor){
+				txt += " " + "<a href='#' onclick='execJournalEditor("+i+");return false;'>ToEdit</a>";
+			}
+			txt += "</td>";
 			txt += "<td>" + data[i].executor + "</td>";
 			txt += "<td>" + data[i].environment + "</td>";
 			txt += "<td>" + data[i].version + "</td>";
@@ -295,3 +311,35 @@ jQuery2(function($) {
 	Redcase.executionTree = new RedcaseExecutionTree($);
 });
 
+function execJournalEditor(journalnum){
+	//var x = document.getElementById("executionjournal_dropdown").value;
+	journalEditorDisplay("block");
+	console.log ("selected: "+journalnum);
+	var theSelectedRow = journalnum +1 ;
+	var theTable = document.getElementById("redcase-history-table");
+	console.log(theTable);
+	var theRow = theTable.rows[theSelectedRow];
+	console.log(theRow);
+	console.log(theRow.cells[2]);
+	var theDivEdit = document.getElementById("executionjournal_edit_date");
+	theDivEdit.innerHTML = theRow.cells[0].innerHTML;
+	theDivEdit = document.getElementById("extension_date");
+	theDivEdit.value = theRow.cells[0].innerHTML;
+	theDivEdit = document.getElementById("results_edit");
+	theDivEdit.value = theRow.cells[1].innerHTML;
+	theDivEdit = document.getElementById("exec_comment_edit");
+	theDivEdit.value = document.getElementById("comment-history-"+journalnum).innerHTML;
+	theDivEdit = document.getElementById("executionjournal_edit_executor");
+	theDivEdit.innerHTML = theRow.cells[3].innerHTML;
+	theDivEdit = document.getElementById("executionjournal_edit_environment");
+	theDivEdit.innerHTML = theRow.cells[4].innerHTML;
+	theDivEdit = document.getElementById("executionjournal_edit_version");
+	theDivEdit.innerHTML = theRow.cells[5].innerHTML;
+
+
+}
+
+function journalEditorDisplay(thedisplay){
+	var x = document.getElementById("executionjournalediting");
+	x.style.display=thedisplay
+}
