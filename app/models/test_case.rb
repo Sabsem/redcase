@@ -157,7 +157,7 @@ class TestCase < ActiveRecord::Base
 			},
 			'type'      => 'case',
 			'state'     => {
-				'disabled' => (issue.status.name != 'In Progress')
+				'disabled' => ((issue.status.name != 'In Progress')&&(issue.status.name != 'Ready to Run')&&(issue.status.name != 'Automation In Progress'))
 			}
 		}
 	end

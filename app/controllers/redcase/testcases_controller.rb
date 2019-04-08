@@ -42,7 +42,7 @@ class Redcase::TestcasesController < ApplicationController
 	end
 
 	def update
-		# TODO: What if there is none?
+		# TODO: What if there is none?\
 		test_case = TestCase.where({ issue_id: params[:id] }).first
 		if test_case.nil?
 			success = false
@@ -71,6 +71,13 @@ class Redcase::TestcasesController < ApplicationController
 		end
 		if params[:contextHook]=='yes'
 			test_case.save
+			for i in 0..params[:add_id].count-1 do
+				if params[:add_id][i] != params[:id]
+					test_case = TestCase.where({issue_id: params[:add_id][i]}).first 
+					test_case.test_suite = TestSuite.find(params[:parent_id])
+					test_case.save
+				end
+			end
 			redirect_to project_issues_path(params[:project_id])
 		elsif params[:result].nil?
 			test_case.save
@@ -79,6 +86,11 @@ class Redcase::TestcasesController < ApplicationController
 		else
 			execute(test_case)
 		end
+	end
+
+	def bulk_edit
+		puts "in Bulk Edit"
+		
 	end
 
 	private
