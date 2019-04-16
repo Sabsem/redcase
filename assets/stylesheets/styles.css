@@ -425,3 +425,19 @@ a:hover img {
 }
 #executionrelatedissues{border-style: hidden;}
 .executionissues{border-style: hidden;}
+
+#execution_attachment{
+	border: 1px solid #d7d7d7;
+	background:#ffffdd;
+	border-radius: 3px;
+	padding: 6px;
+	margin-bottom: 6px;
+}
+
+#executionjournalediting{
+	border: 1px solid #d7d7d7;
+	background:#ffffdd;
+	border-radius: 3px;
+	padding: 6px;
+	margin-bottom: 6px;
+}

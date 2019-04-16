@@ -64,7 +64,6 @@
 				%>
 				<div>
 					<%= link_to l(:label_issue_new), _new_project_issue_path(@project), :class => 'icon icon-add new-issue' %>
-					<div id="testingissue"></div>
 
 					
 				</div>
@@ -74,7 +73,7 @@
 </table>
 <div id="executionjournalediting" style="display:none;">
 	<%= render(:partial=>'executionjournal_edit')%>
-	<a href="#" onclick='journalEditorDisplay("none"); return false;'>testcancel</a>
+	<a href="#" onclick='journalEditorDisplay("none"); return false;'>Cancel</a>
 </div>
 <table id='all-results-d'
        width="100%"

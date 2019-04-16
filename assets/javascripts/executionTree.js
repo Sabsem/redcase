@@ -256,7 +256,7 @@ var RedcaseExecutionTree = function($) {
 			txt += "<td>" + data[i].result + "</td>";
 			txt += "<td><span id='comment-history-"+i+"'>" + data[i].comment+"</span>";
 			if(currentUser.name == data[i].executor){
-				txt += " " + "<a href='#' onclick='execJournalEditor("+i+");return false;'>ToEdit</a>";
+				txt += " " + "<a class='icon-only icon-edit' href='#' onclick='execJournalEditor("+i+");return false;'>ToEdit</a>";
 			}
 			txt += "</td>";
 			txt += "<td>" + data[i].executor + "</td>";

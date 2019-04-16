@@ -34,6 +34,11 @@
 							</div>
 						</td>
 					</tr>
+					<tr>
+						<td>
+							<b>Full test case comparison</b> <%= check_box_tag 'Full', 'all_results', false, :class=>'report_combo' %>
+						</td>
+					</tr>
 				</table>
 				<div id="jschart_container_id"
 				     class="graph"
@@ -45,6 +50,8 @@
 					        style="width: 510px; height: 510px">
 					</canvas>
 				</div>
+			</div>
+			<div id="report_related_issues">
 			</div>
 		</td>
 		<!-- Test case execution results table -->

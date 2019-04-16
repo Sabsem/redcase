@@ -5,6 +5,8 @@ class Redcase::GraphController < ApplicationController
 	before_filter :find_project, :authorize
 
 	def show
+		puts "in show"
+		puts params[:full_check]
 		environment = ExecutionEnvironment.find_by_id(params[:environment_id])
 		# TODO: This is not supposed to happen in general, only if this
 		#       controller method was called at the wrong time. Unfortunately,
@@ -22,7 +24,8 @@ class Redcase::GraphController < ApplicationController
 			version.id,
 			environment.id,
 			root_execution_suite.nil? ? -1 : root_execution_suite.id,
-			@project.id
+			@project.id,
+			params[:full_check]
 		)
 		render :json => get_json(graph_data)
 	end

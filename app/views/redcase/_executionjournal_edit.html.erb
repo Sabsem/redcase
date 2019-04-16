@@ -1,8 +1,8 @@
 <%= form_tag(project_redcase_executionjournal_path(1,1), {:method=>'patch',:id=>"extensionJournalForm"}) do %>
-Date: 
+<b>Date:</b> 
 <div id="executionjournal_edit_date">
 </div><br>
-Result:
+<b>Result:</b>
 <div id="executionjournal_edit_result">
 	<%=
 					select_tag(
@@ -15,7 +15,7 @@ Result:
 					)
 				%>
 </div><br>
-Comments:
+<b>Comments:</b>
 <div id="executionjournal_edit_comment">
 	<%=
 					text_area_tag(
@@ -26,13 +26,13 @@ Comments:
 					)
 				%>
 </div><br>
-Executor: 
+<b>Executor:</b> 
 <div id="executionjournal_edit_executor">
 </div><br>
-Enviornment:
+<b>Enviornment:</b>
 <div id="executionjournal_edit_environment">
 </div><br>
-Version:
+<b>Version:</b>
 <div id="executionjournal_edit_version">
 </div><br> 
 

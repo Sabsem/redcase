@@ -202,6 +202,7 @@ var RedcaseApi = function($) {
 		this.controller = 'graph';
 
 		this.show = function(id) {
+			console.log("in graph show");
 			return {
 				method: (self.controller + '/' + id),
 				httpMethod: 'GET'

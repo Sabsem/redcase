@@ -92,16 +92,21 @@ class Redcase::ExecutionjournalsController < ApplicationController
 					Where j.created_on >= '#{formattedDate}' And j.created_on < '#{formattedDateUpper}'
 					And j.user_id=#{params[:extension_user_id]};
 				}
+				puts "before journals query"
 				toEditIssueJournal = ActiveRecord::Base.connection.execute(sql)
+				puts "after journals query"
 				if toEditIssueJournal.count==1
+					puts "only 1 journal count"
 					toEditIJournal = Journal.find(toEditIssueJournal[0]["id"])
 					toEditIJournal.notes = editedComment
 					toEditIJournal.save
 				elsif toEditIssueJournal.count==0
-					theIss = Issue.find(params[:id])
-					theIss.init_journal[:notes]=editedComment
-					theIss.save
+					puts "0 journal count"
+					# theIss = Issue.find(params[:id])
+					# theIss.init_journal[:notes]=editedComment
+					# theIss.save
 				else
+					puts "more than 1 journal count"
 					#TODO more than one journal with the time stamp
 
 				end
