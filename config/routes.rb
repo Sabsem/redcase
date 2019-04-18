@@ -11,7 +11,7 @@ resources :projects do
 		resources :executionjournals, only: [:index,:edit,:update]
 		resources :export, only: [:index]
 		resources :graph, only: [:show]
-		resources :combos, only: [:index]
+		resources :combos, only: [:index, :show]
 	end
 end
 

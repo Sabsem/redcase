@@ -86,6 +86,22 @@ var RedcaseGraph = function($) {
 
 var getRelatedIssues = function(){
 	console.log('in related issues');
+	var apiParams = $.extend(
+			{},
+			Redcase.api.combos.show(0), {
+				params: {
+					environment_id: $('#environment').val(),
+					suite_id: $('#suite').val(),
+					version_id: $('#versionx').val(),
+					full_check: document.getElementById("Full").checked
+				},
+				success: function(data) {
+					console.log("successful combo api call");
+				},
+				errorMessage: "Couldn't load combo api"
+			}
+		);
+		Redcase.api.apiCall(apiParams);
 }
 jQuery2(function($) {
 	if (typeof(Redcase) === 'undefined') {

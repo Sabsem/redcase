@@ -193,6 +193,14 @@ var RedcaseApi = function($) {
 			};
 		};
 
+		this.show = function(id){
+			console.log("in combos show");
+			return{
+				method: (self.controller + '/' + id),
+				httpMethod: 'GET'
+			};
+		};
+
 	};
 
 	this.graph = new function() {
