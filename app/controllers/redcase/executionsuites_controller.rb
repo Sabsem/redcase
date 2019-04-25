@@ -5,16 +5,13 @@ class Redcase::ExecutionsuitesController < ApplicationController
 	before_filter :find_project, :authorize
 
 	def index
-		puts "in suites index"
 		if params[:get_results].nil?
-			puts "in suites index if"
 			@list2 = ExecutionSuite.find_by_project_id(@project.id)
 			@version = Version
 				.order('created_on desc')
 				.find_by_project_id(@project.id)
 			render :partial => 'redcase/execution_list'
 		else
-			puts "in suites index else"
 			@environment = ExecutionEnvironment.find(params[:environment_id])
 			@version = Version.find(params[:version_id])
 			@root_execution_suite = ExecutionSuite.find_by_id(params[:suite_id])
@@ -24,31 +21,20 @@ class Redcase::ExecutionsuitesController < ApplicationController
 				params[:suite_id].to_i,
 				@project.id
 			)
-			puts "after first results"
-			#puts @results.inspect
-			#exec_result = ExecutionResult.all
 			failID= nil
 			failArr = []
 			@results.each do |er|
-				#puts "iterate"
-				#puts er.inspect
-				#puts er.result.name
 				if (er.result.name=="Failed")
 					failArr.push(er.test_case.issue.id)
 				end
 			end
-			puts "after iterate"
 			relatedQueryStr = ""
 			failArr.each do |f|
-				#puts "in failarr iterate"
 				if relatedQueryStr != ""
 					relatedQueryStr += ", "
 				end
 				relatedQueryStr += f.to_s
 			end
-			puts relatedQueryStr
-			puts "after string creation"
-
 			sql = %{
 				Select r.issue_from_id, r.issue_to_id, t.name, i.subject, s.name As status  
 				From issue_relations r
@@ -62,10 +48,6 @@ class Redcase::ExecutionsuitesController < ApplicationController
 			rescue => e 
 				@relation_join = nil
 			end
-			# @relation_join.each do |x|
-			# 	puts x.inspect
-			# end
-			puts "after query"
 			@results = ExecutionSuite.get_results(
 				@environment,
 				@version,

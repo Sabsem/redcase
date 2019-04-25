@@ -5,8 +5,6 @@ class Redcase::GraphController < ApplicationController
 	before_filter :find_project, :authorize
 
 	def show
-		puts "in graph show"
-		puts params[:full_check]
 		environment = ExecutionEnvironment.find_by_id(params[:environment_id])
 		# TODO: This is not supposed to happen in general, only if this
 		#       controller method was called at the wrong time. Unfortunately,
@@ -27,7 +25,6 @@ class Redcase::GraphController < ApplicationController
 			@project.id,
 			params[:full_check]
 		)
-		puts "Out of get_data"
 		render :json => get_json(graph_data)
 	end
 

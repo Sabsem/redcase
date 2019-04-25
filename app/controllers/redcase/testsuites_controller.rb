@@ -5,7 +5,6 @@ class Redcase::TestsuitesController < ApplicationController
 	before_filter :find_project, :authorize
 
 	def index
-		puts "in testsuites index"
 		testsuites = TestSuite
 			.get_root_for_project(@project)
 			.to_json(view_context)

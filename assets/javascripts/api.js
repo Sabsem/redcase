@@ -1,6 +1,5 @@
 
 var RedcaseApi = function($) {
-	console.log('In api file\n');
 	var log = LogManager.getLog('redcase.api');
 
 	this.context = 'redcase/';
@@ -194,7 +193,6 @@ var RedcaseApi = function($) {
 		};
 
 		this.show = function(id){
-			console.log("in combos show");
 			return{
 				method: (self.controller + '/' + id),
 				httpMethod: 'GET'
@@ -210,7 +208,6 @@ var RedcaseApi = function($) {
 		this.controller = 'graph';
 
 		this.show = function(id) {
-			console.log("in graph show");
 			return {
 				method: (self.controller + '/' + id),
 				httpMethod: 'GET'

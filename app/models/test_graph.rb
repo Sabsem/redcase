@@ -8,8 +8,6 @@ class TestGraph
 			names[result.name] = 0
 			names
 		}
-		puts 'in get_data'
-		puts full_check.class
 		un_count = 0
 		TestCase
 			.includes(execution_journals: [ :result ])
@@ -39,7 +37,6 @@ class TestGraph
 					end
 				end
 			}
-		puts un_count
 		all['Not Executed'] = un_count
 		all
 	end

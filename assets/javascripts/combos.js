@@ -45,7 +45,6 @@ var RedcaseCombos = function($) {
 		);
 		Redcase.api.apiCall(apiParams);
 		Redcase.graph.update();
-		console.log("before executionsuite call");
 		apiParams = jQuery2.extend(
 			{},
 			Redcase.api.executionSuite.index(), {
@@ -62,7 +61,6 @@ var RedcaseCombos = function($) {
 			}
 		);
 		Redcase.api.apiCall(apiParams);
-		console.log("after execution suite call");
 	};
 
 	this.refreshFilter = function() {

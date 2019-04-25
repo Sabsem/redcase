@@ -5,7 +5,6 @@ class Redcase::ExecutionjournalsController < ApplicationController
 	before_filter :find_project, :authorize, :except=>[:update, :edit]
 
 	def index
-		puts "in journal index"
 		journals =
 			if !params[:issue_id].nil?
 				ExecutionJournal.find_by_issue_id(params[:issue_id])
@@ -16,8 +15,6 @@ class Redcase::ExecutionjournalsController < ApplicationController
 	end
 
 	def update
-		puts "in update"
-		puts params[:extension_form]
 		if (params[:extension_form]=="extension")
 			@project = Project.find(params[:project_id])
 			formDigest = params[:attachments]["1"]["token"]
@@ -41,10 +38,6 @@ class Redcase::ExecutionjournalsController < ApplicationController
 			theAttach.save
 			redirect_to "/projects/#{params[:project_id]}/redcase?tab=Execution" and return
 		elsif (params[:extension_form]=="editing")
-			puts ("in the editing else")
-			params.each do |key, value|
-				puts key+ ' : '+value
-			end
 			theDate = params[:extension_date]
 			theDateDay = theDate.slice!(0..1).to_i
 			theDate.slice!(0)
@@ -60,12 +53,8 @@ class Redcase::ExecutionjournalsController < ApplicationController
 			dbDate = DateTime.new(theDateYear,theDateMonth,theDateDay,theDateHour,theDateMinute,theDateSeconds)
 			dbDate= dbDate.in_time_zone("Pacific Time (US & Canada)")
 			dbDateUpper = dbDate + 2.seconds
-			puts dbDate.month
 			formattedDate = ""+dbDate.year.to_s+"-"+dbDate.month.to_s.rjust(2, "0")+"-"+dbDate.day.to_s.rjust(2, "0")+" "+dbDate.hour.to_s.rjust(2, "0")+":"+dbDate.min.to_s.rjust(2, "0")+":"+dbDate.sec.to_s.rjust(2, "0")
 			formattedDateUpper =  ""+dbDateUpper.year.to_s+"-"+dbDateUpper.month.to_s.rjust(2, "0")+"-"+dbDateUpper.day.to_s.rjust(2, "0")+" "+dbDateUpper.hour.to_s.rjust(2, "0")+":"+dbDateUpper.min.to_s.rjust(2, "0")+":"+dbDateUpper.sec.to_s.rjust(2, "0")
-			puts formattedDate
-			puts formattedDateUpper
-			#theJournal = ExecutionJournal.where("created_on LIKE ?", "2019-04-02%")
 			sql = %{
 				Select *
 				From execution_journals e 
@@ -73,16 +62,11 @@ class Redcase::ExecutionjournalsController < ApplicationController
 				And e.executor_id=#{params[:extension_user_id]};
 			}
 			toEditEntry = ActiveRecord::Base.connection.execute(sql)
-			puts toEditEntry[0].inspect
 			if toEditEntry.count == 1
 				theJournalResults = ExecutionResult.where("name=?", params[:results_edit])
-				puts theJournalResults[0][:id]
 				editedResult= theJournalResults[0][:id]
 				editedComment= params[:exec_comment_edit]
-				puts "before query"
-				puts toEditEntry[0]["id"]
 				toEditJournal = ExecutionJournal.find(toEditEntry[0]["id"]);
-				puts toEditJournal.inspect
 				toEditJournal.result_id = editedResult
 				toEditJournal.comment = editedComment
 				toEditJournal.save
@@ -92,25 +76,20 @@ class Redcase::ExecutionjournalsController < ApplicationController
 					Where j.created_on >= '#{formattedDate}' And j.created_on < '#{formattedDateUpper}'
 					And j.user_id=#{params[:extension_user_id]};
 				}
-				puts "before journals query"
 				toEditIssueJournal = ActiveRecord::Base.connection.execute(sql)
-				puts "after journals query"
 				if toEditIssueJournal.count==1
-					puts "only 1 journal count"
 					toEditIJournal = Journal.find(toEditIssueJournal[0]["id"])
 					toEditIJournal.notes = editedComment
 					toEditIJournal.save
 				elsif toEditIssueJournal.count==0
-					puts "0 journal count"
+					#TODO the journal couldn't be found
 					# theIss = Issue.find(params[:id])
 					# theIss.init_journal[:notes]=editedComment
 					# theIss.save
 				else
-					puts "more than 1 journal count"
 					#TODO more than one journal with the time stamp
 
 				end
-				puts "finish?"
 
 			else
 				#TODO more than one exec journal with the time stamp
@@ -120,7 +99,6 @@ class Redcase::ExecutionjournalsController < ApplicationController
 	end
 
 	def edit
-		puts "in journal edit"
 		#journalResults = ExecutionResult.all
 		# result = {}
 		# result[:all_results]=journalResults
@@ -131,7 +109,6 @@ class Redcase::ExecutionjournalsController < ApplicationController
 
 	# TODO: Extract to a base controller.
 	def find_project
-		puts "in project"
 		@project = Project.find(params[:project_id])
 	end
 

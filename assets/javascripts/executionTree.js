@@ -94,8 +94,6 @@ var RedcaseExecutionTree = function($) {
 						"object_id": node.original.issue_id
 					},
 					success: function(data) {
-						console.log("selection change");
-						console.log(data);
 						currentUser = data.current_userj;
 						currentIssueId = data.test_casej.issue_id;
 						$('#exec_descr_id').toggle(
@@ -148,10 +146,6 @@ var RedcaseExecutionTree = function($) {
 										data.length > 0
 									);
 									if (data.length > 0) {
-										console.log(data);
-											//if (currentUser.name==data[i].executor){
-										console.log("Before history");
-										console.log(currentUser);
 										var txt = getHistory(data);
 										$('#all-results').html(txt);
 									}
@@ -169,8 +163,6 @@ var RedcaseExecutionTree = function($) {
 									"issue_id": node.original.issue_id
 								},
 								success: function(data) {
-									console.log('In second api function\n');
-									console.log(data);
 									$('#test-case-attach').toggle(
 										data.length > 0
 									);
@@ -208,10 +200,6 @@ var RedcaseExecutionTree = function($) {
 	};
 
 	var getHistory = function(data) {
-		console.log("gethistory");
-		console.log(data);
-		console.log("current user");
-		console.log(currentUser);
 		var unique = {};
 		var txt = "<table id='redcase-history-table' class='redcase-row' width='100%'>"
 			+ "<tr style='font-weight: bold; background-color: #eeeeee'>"
@@ -314,13 +302,9 @@ jQuery2(function($) {
 function execJournalEditor(journalnum){
 	//var x = document.getElementById("executionjournal_dropdown").value;
 	journalEditorDisplay("block");
-	console.log ("selected: "+journalnum);
 	var theSelectedRow = journalnum +1 ;
 	var theTable = document.getElementById("redcase-history-table");
-	console.log(theTable);
 	var theRow = theTable.rows[theSelectedRow];
-	console.log(theRow);
-	console.log(theRow.cells[2]);
 	var theDivEdit = document.getElementById("executionjournal_edit_date");
 	theDivEdit.innerHTML = theRow.cells[0].innerHTML;
 	theDivEdit = document.getElementById("extension_date");

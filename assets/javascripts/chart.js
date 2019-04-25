@@ -19,7 +19,6 @@ var RedcaseGraph = function($) {
 	};
 
 	this.isRendered = function() {
-		console.log('in isRendered');
 		var computeDimension = function(element, dimension) {
 			return element['offset' + dimension]
 				|| document.defaultView
@@ -33,7 +32,6 @@ var RedcaseGraph = function($) {
 	};
 
 	this.update = function() {
-		console.log('in update');
 		var apiParams = $.extend(
 			{},
 			Redcase.api.graph.show(0), {
@@ -53,7 +51,6 @@ var RedcaseGraph = function($) {
 	};
 
 	this.refresh = function(data) {
-		console.log('in refresh');
 		if (self.chart) {
 			self.chart.destroy();
 		}
@@ -72,7 +69,6 @@ var RedcaseGraph = function($) {
 				self.chart.generateLegend()
 			);
 		}
-		getRelatedIssues();
 	};
 
 	(function() {
@@ -84,25 +80,6 @@ var RedcaseGraph = function($) {
 
 }
 
-var getRelatedIssues = function(){
-	console.log('in related issues');
-	// var apiParams = $.extend(
-	// 		{},
-	// 		Redcase.api.combos.show(0), {
-	// 			params: {
-	// 				environment_id: $('#environment').val(),
-	// 				suite_id: $('#suite').val(),
-	// 				version_id: $('#versionx').val(),
-	// 				full_check: document.getElementById("Full").checked
-	// 			},
-	// 			success: function(data) {
-	// 				console.log("successful combo api call");
-	// 			},
-	// 			errorMessage: "Couldn't load combo api"
-	// 		}
-	// 	);
-	// 	Redcase.api.apiCall(apiParams);
-}
 jQuery2(function($) {
 	if (typeof(Redcase) === 'undefined') {
 		Redcase = {};

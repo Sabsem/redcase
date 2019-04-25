@@ -22,7 +22,6 @@ class Redcase::TestcasesController < ApplicationController
 		curr_user[:id]=User.current.id
 		thename = User.current.firstname + " " +User.current.lastname
 		curr_user[:name]=thename
-		puts curr_user[:name]
 		result[:test_casej]=test_case.to_json(view_context)
 		result[:relation_casej]=relation_join
 		result[:project_j]=@project
@@ -89,7 +88,6 @@ class Redcase::TestcasesController < ApplicationController
 	end
 
 	def bulk_edit
-		puts "in Bulk Edit"
 		
 	end
 
