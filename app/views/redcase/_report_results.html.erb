@@ -37,6 +37,7 @@
 			&nbsp;
 		</td>
 	</tr>
+	<% puts 'before populating results' %>
 	<% @results.each do |x| %>
 	<%
 		color = case x.result.name
@@ -114,3 +115,59 @@
 	</tr>
 	<% end %>
 </table>
+
+<div id="report_related_issues">
+	<% if @relation_join != nil %>
+	<p style="font-weight: bold; background-color: #507aaa; color: white; text-align: center; vertical-align: top">Related to Failed Test Cases</p>
+		<table class="redcase-row">
+			<tr style="font-weight: bold; background-color: #FFD8D8; color: black; text-align: center; vertical-align: top">
+				<td style="width: 45px; vertical-align: middle; border-left-width: 0px; border-top-width: 0px; padding: 6px">
+					<%= label_tag('ID') %>
+
+				</td>
+				<td style="width: 110px; vertical-align: middle; border-top-width: 0px; padding: 6px">
+					<%= label_tag('Tracker') %>
+				</td>
+				<td style="width: 207px; vertical-align: middle; border-top-width: 0px; padding: 6px">
+					<%= label_tag('Name') %>
+				</td>
+				<td style="vertical-align: middle; border-top-width: 0px; padding: 6px; width:140px">
+					<%= label_tag('Status') %>
+				</td>
+			</tr>
+			<% @relation_join.each do |y| %>
+				<tr>
+					<td>
+						<%=
+							link_to(
+								y["issue_to_id"], {
+									:controller => '/issues',
+									:action => :show,
+									:id => y["issue_to_id"]
+								},
+								:target => '_blank'
+							)
+						%>
+					</td>
+					<td>
+						<%=
+							link_to(
+								y["name"], {
+									:controller => '/issues',
+									:action => :show,
+									:id => y["issue_to_id"]
+								},
+								:target => '_blank'
+							)
+						%>
+					</td>
+					<td><%=y["subject"]%></td>
+					<td><%=y["status"]%></td>
+				</tr>
+			<% end %>
+
+					
+		</table>
+	<%end%>
+				
+</div>

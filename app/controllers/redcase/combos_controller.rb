@@ -59,15 +59,32 @@ class Redcase::CombosController < ApplicationController
 			end
 
 		sql = %{
-			Select
+			Select t.id As test_case_id, i.id As issue_id
 			From execution_suite_test_case et 
 			Left Outer Join execution_suites e on et.execution_suite_id=e.id 
 			Left Outer Join test_cases t on et.test_case_id= t.id
 			Left Outer Join issues i On t.issue_id=i.id 
 			Where et.id = #{params[:suite_id]};
 		}
-		test_cases = ActiveRecord::Base.connection.execute(sql)
-		puts test_cases.inspect	
+
+		sql = %{
+			Select
+			From execution_journals ej 
+			Left Outer Join test_cases tc on ej.test_case_id= tc.id 
+			Left Outer Join execution_suite_test_case et On et.test_case_id=tc.id
+			Left Outer Join execution_results er On ej.result_id = er.id
+			Left Outer Join versions v On ej.version_id = v.id
+			Left Outer Join execution_environments ee On ej.environment_id=ee.id
+			Where
+		}
+		#test_cases = ActiveRecord::Base.connection.execute(sql)
+		test_cases = ExecutionSuite.get_results(
+				@environment,
+				@version,
+				params[:suite_id].to_i,
+				@project.id
+			)
+		#puts test_cases.inspect	
 
 		render plain: 'plain text'
 	end

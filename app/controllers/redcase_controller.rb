@@ -42,6 +42,63 @@ class RedcaseController < ApplicationController
 			#       instead of an indentifier.
 			@project.id
 		)
+
+		puts "after first results"
+			#puts @results.inspect
+			#exec_result = ExecutionResult.all
+			failID= nil
+			failArr = []
+			@results.each do |er|
+				#puts "iterate"
+				#puts er.inspect
+				#puts er.result.name
+				if (er.result.name=="Failed")
+					failArr.push(er.test_case.issue.id)
+				end
+			end
+			puts "after iterate"
+			relatedQueryStr = ""
+			failArr.each do |f|
+				#puts "in failarr iterate"
+				if relatedQueryStr != ""
+					relatedQueryStr += ", "
+				end
+				relatedQueryStr += f.to_s
+			end
+			puts relatedQueryStr
+			puts "after string creation"
+
+			sql = %{
+				Select r.issue_from_id, r.issue_to_id, t.name, i.subject, s.name As status  
+				From issue_relations r
+				Left Outer Join issues i On r.issue_to_id=i.id
+				Left Outer Join trackers t On i.tracker_id=t.id
+				Left Outer Join issue_statuses s on i.status_id=s.id
+				Where r.issue_from_id In (#{relatedQueryStr});
+			}
+			begin
+				@relation_join = ActiveRecord::Base.connection.execute(sql)
+			rescue => e 
+				@relation_join = nil
+			end
+			puts "after query"
+			# @relation_join.each do |r|
+			# 	puts r.inspect
+			# end
+			@results = ExecutionSuite.get_results(
+			@environment,
+			# FIXME: The page can be opened when the project has no versions
+			#        yet. That might be the cause of some error messages that
+			#        appear in popups if get_results() does not handle this case
+			#        properly.
+			@version,
+			# FIXME: Get rid of the magic number -1.
+			RedcaseHelper.get_id_or_default(@root_execution_suite, -1),
+			# TODO: More OOP kind of style would be to supply a Project object
+			#       instead of an indentifier.
+			@project.id
+		)
+			#puts @results.inspect
 	end
 
 	def get_attachment_urls
