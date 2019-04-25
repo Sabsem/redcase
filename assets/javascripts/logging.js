@@ -13,7 +13,7 @@ var LogManager = new function() {
 };
 
 var Log = function(context) {
-	console.log ('in log\n');
+	
 	var LevelFieldWidth = 5;
 
 	var context = context;

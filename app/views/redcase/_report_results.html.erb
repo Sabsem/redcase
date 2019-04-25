@@ -37,7 +37,6 @@
 			&nbsp;
 		</td>
 	</tr>
-	<% puts 'before populating results' %>
 	<% @results.each do |x| %>
 	<%
 		color = case x.result.name
@@ -161,7 +160,18 @@
 							)
 						%>
 					</td>
-					<td><%=y["subject"]%></td>
+					<td>
+						<%=
+							link_to(
+								y["subject"], {
+									:controller => '/issues',
+									:action => :show,
+									:id => y["issue_to_id"]
+								},
+								:target => '_blank'
+							)
+						%>
+					</td>
 					<td><%=y["status"]%></td>
 				</tr>
 			<% end %>
