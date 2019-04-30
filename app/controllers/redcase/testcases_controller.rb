@@ -6,6 +6,7 @@ class Redcase::TestcasesController < ApplicationController
 
 	def index
 		# TODO: What if there is none? r.issue_from_id, r.issue_to_id, t.name
+		puts "in testcases index"
 		sql = %{
 				Select r.issue_from_id, r.issue_to_id, t.name, i.subject, s.name As status  
 				From issue_relations r
@@ -42,6 +43,7 @@ class Redcase::TestcasesController < ApplicationController
 
 	def update
 		# TODO: What if there is none?\
+		puts "in testcases update"
 		test_case = TestCase.where({ issue_id: params[:id] }).first
 		if test_case.nil?
 			success = false
@@ -69,6 +71,7 @@ class Redcase::TestcasesController < ApplicationController
 			end
 		end
 		if params[:contextHook]=='yes'
+			puts "in context"
 			test_case.save
 			for i in 0..params[:add_id].count-1 do
 				if params[:add_id][i] != params[:id]
@@ -87,9 +90,6 @@ class Redcase::TestcasesController < ApplicationController
 		end
 	end
 
-	def bulk_edit
-		
-	end
 
 	private
 
@@ -99,6 +99,7 @@ class Redcase::TestcasesController < ApplicationController
 	end
 
 	def execute(test_case)
+		puts "in testcases execute"
 		version = Version.find_by_name_and_project_id(
 			params[:version],
 			@project.id

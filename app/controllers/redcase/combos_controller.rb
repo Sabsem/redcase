@@ -36,36 +36,36 @@ class Redcase::CombosController < ApplicationController
 		end
 	end
 
-	def show
-		@project = Project.find(params[:project_id] || params[:id])
-		@environment =
-			if params[:environment_id]
-				ExecutionEnvironment.find(params[:environment_id])
-			else
-				ExecutionEnvironment.get_default_for_project(@project)
-			end
-		@version =
-			if params[:version_id]
-				Version.find(params[:version_id])
-			else
-				Version.order('created_on desc').find_by_project_id(@project.id)
-			end
-		@root_execution_suite =
-			if params[:suite_id]
-				ExecutionSuite.find_by_id(params[:suite_id])
-			else
-				ExecutionSuite.get_root_for_project(@project)
-			end
+	# def show
+	# 	@project = Project.find(params[:project_id] || params[:id])
+	# 	@environment =
+	# 		if params[:environment_id]
+	# 			ExecutionEnvironment.find(params[:environment_id])
+	# 		else
+	# 			ExecutionEnvironment.get_default_for_project(@project)
+	# 		end
+	# 	@version =
+	# 		if params[:version_id]
+	# 			Version.find(params[:version_id])
+	# 		else
+	# 			Version.order('created_on desc').find_by_project_id(@project.id)
+	# 		end
+	# 	@root_execution_suite =
+	# 		if params[:suite_id]
+	# 			ExecutionSuite.find_by_id(params[:suite_id])
+	# 		else
+	# 			ExecutionSuite.get_root_for_project(@project)
+	# 		end
 
-		test_cases = ExecutionSuite.get_results(
-				@environment,
-				@version,
-				params[:suite_id].to_i,
-				@project.id
-			)
+	# 	test_cases = ExecutionSuite.get_results(
+	# 			@environment,
+	# 			@version,
+	# 			params[:suite_id].to_i,
+	# 			@project.id
+	# 		)
 
-		render plain: 'plain text'
-	end
+	# 	render plain: 'plain text'
+	# end
 
 	private
 

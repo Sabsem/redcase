@@ -5,13 +5,12 @@ resources :projects do
 		resources :testsuites, only: [:index, :create, :update, :destroy]
 		resources :testcases, only: [:index, :update] do
 			post 'copy', on: :member
-			match 'bulk_edit', :via => [:get, :post]
 		end
 		resources :executionsuites, only: [:index, :update, :create, :destroy, :show]
 		resources :executionjournals, only: [:index,:edit,:update]
 		resources :export, only: [:index]
 		resources :graph, only: [:show]
-		resources :combos, only: [:index, :show]
+		resources :combos, only: [:index]
 	end
 end
 

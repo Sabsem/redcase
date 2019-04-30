@@ -16,6 +16,7 @@ class Redcase::ExecutionjournalsController < ApplicationController
 
 	def update
 		if (params[:extension_form]=="extension")
+			puts "in journo update if"
 			@project = Project.find(params[:project_id])
 			formDigest = params[:attachments]["1"]["token"]
 			digestChar = formDigest.slice!(0)
@@ -32,12 +33,17 @@ class Redcase::ExecutionjournalsController < ApplicationController
 				Order By a.id desc;
 			}
 			attachEntry = ActiveRecord::Base.connection.execute(sql)
+			puts "After attachment lookup"
+			attachEntry.each do |x|
+				puts x.inspect
+			end
 			theAttach=Attachment.find_by(id:attachEntry[0]["id"])
 			theAttach.container_id=params[:id]
 			theAttach.container_type = "Issue"
 			theAttach.save
 			redirect_to "/projects/#{params[:project_id]}/redcase?tab=Execution" and return
 		elsif (params[:extension_form]=="editing")
+			puts "in journo update else (editing)"
 			theDate = params[:extension_date]
 			theDateDay = theDate.slice!(0..1).to_i
 			theDate.slice!(0)
@@ -62,6 +68,8 @@ class Redcase::ExecutionjournalsController < ApplicationController
 				And e.executor_id=#{params[:extension_user_id]};
 			}
 			toEditEntry = ActiveRecord::Base.connection.execute(sql)
+			puts "after journo lookup"
+			puts toEditEntry.inspect
 			if toEditEntry.count == 1
 				theJournalResults = ExecutionResult.where("name=?", params[:results_edit])
 				editedResult= theJournalResults[0][:id]
@@ -77,6 +85,8 @@ class Redcase::ExecutionjournalsController < ApplicationController
 					And j.user_id=#{params[:extension_user_id]};
 				}
 				toEditIssueJournal = ActiveRecord::Base.connection.execute(sql)
+				puts "after second journo lookup"
+				puts toEditIJournal.inspect
 				if toEditIssueJournal.count==1
 					toEditIJournal = Journal.find(toEditIssueJournal[0]["id"])
 					toEditIJournal.notes = editedComment

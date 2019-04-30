@@ -3,6 +3,7 @@ module Redcase
 		class ViewRedcaseExtensionContextMenuHook < Redmine::Hook::ViewListener
 			
 			def view_issues_context_menu_start(context={})
+				puts "in context menu hook"
 				notTestCaseFlag = false
 				idarr=[]
 				sql = %{
@@ -11,16 +12,22 @@ module Redcase
 					Where t.name = 'Test case';
 				}
 				tracks = ActiveRecord::Base.connection.execute(sql)
+				puts tracks.inspect
 				for i in 0..context[:issues].count-1 do
 					idarr[i]=context[:issues][i][:id]
 					if context[:issues][i][:tracker_id] != tracks[0]["id"].to_i
 						notTestCaseFlag = true
 					end
 				end
+				puts "not testcase flag"
+				puts notTestCaseFlag
 				if notTestCaseFlag == false
+					puts "in Test Case"
 					listItems = ""
 					tsuites=Array.new()
 					testsuite = TestSuite.find_by_project_id(context[:issues][0][:project_id]);
+					puts "testsuite result:"
+					puts testsuite.inspect
 					tsuites.push(testsuite)	
 					tsuites.each do |item|
 						if item !=nil
@@ -29,8 +36,10 @@ module Redcase
 								From test_suites
 								Where parent_id=#{item["id"]};
 							}
+							puts "before test suite query"
 							testsuite= ActiveRecord::Base.connection.execute(sql)
 							testsuite.each do |child|
+								puts child.inspect
 								tsuites.push(child)
 							end
 
