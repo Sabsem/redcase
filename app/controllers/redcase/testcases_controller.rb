@@ -43,7 +43,7 @@ class Redcase::TestcasesController < ApplicationController
 
 	def update
 		# TODO: What if there is none?\
-		puts "in testcases update"
+		logger.info "in testcases update"
 		test_case = TestCase.where({ issue_id: params[:id] }).first
 		if test_case.nil?
 			success = false
@@ -71,7 +71,7 @@ class Redcase::TestcasesController < ApplicationController
 			end
 		end
 		if params[:contextHook]=='yes'
-			puts "in context"
+			logger.info "in context"
 			test_case.save
 			for i in 0..params[:add_id].count-1 do
 				if params[:add_id][i] != params[:id]
@@ -99,7 +99,7 @@ class Redcase::TestcasesController < ApplicationController
 	end
 
 	def execute(test_case)
-		puts "in testcases execute"
+		logger.info "in testcases execute"
 		version = Version.find_by_name_and_project_id(
 			params[:version],
 			@project.id
