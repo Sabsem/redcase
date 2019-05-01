@@ -16,6 +16,7 @@ class Redcase::ExecutionjournalsController < ApplicationController
 
 	def update
 		if (params[:extension_form]=="extension")
+			puts "in journo update if"
 			logger.info "in journo update if"
 			@project = Project.find(params[:project_id])
 			formDigest = params[:attachments]["1"]["token"]
@@ -86,7 +87,7 @@ class Redcase::ExecutionjournalsController < ApplicationController
 				}
 				toEditIssueJournal = ActiveRecord::Base.connection.exec_query(sql)
 				logger.info "after second journo lookup"
-				logger.info toEditIJournal.inspect
+				logger.info toEditIssueJournal.inspect
 				if toEditIssueJournal.count==1
 					toEditIJournal = Journal.find(toEditIssueJournal[0]["id"])
 					toEditIJournal.notes = editedComment
@@ -109,11 +110,12 @@ class Redcase::ExecutionjournalsController < ApplicationController
 	end
 
 	def edit
-		#journalResults = ExecutionResult.all
+		# puts "in exec journal edit"
+		# journalResults = ExecutionResult.all
 		# result = {}
 		# result[:all_results]=journalResults
 		render :json => journalResults
-		#redirect_to"/projects/1/redcase?tab=Execution" and return
+		# redirect_to"/projects/1/redcase?tab=Execution" and return
 
 	end
 
