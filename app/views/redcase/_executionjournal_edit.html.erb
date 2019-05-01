@@ -1,5 +1,5 @@
-<%= form_tag(project_redcase_executionjournal_path(1,1), {:method=>'patch',:id=>"extensionJournalForm"}) do %>
-<b>Date:</b> 
+<%= form_tag(project_redcase_executionjournal_path(params[:id],1), {:method=>'patch',:id=>"extensionJournalForm"}) do %>
+<b>Date:</b>
 <div id="executionjournal_edit_date">
 </div><br>
 <b>Result:</b>

@@ -200,6 +200,7 @@ var RedcaseExecutionTree = function($) {
 	};
 
 	var getHistory = function(data) {
+		console.log(data);
 		var unique = {};
 		var txt = "<table id='redcase-history-table' class='redcase-row' width='100%'>"
 			+ "<tr style='font-weight: bold; background-color: #eeeeee'>"

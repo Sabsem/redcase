@@ -6,7 +6,6 @@ class Redcase::TestcasesController < ApplicationController
 
 	def index
 		# TODO: What if there is none? r.issue_from_id, r.issue_to_id, t.name
-		puts "in testcases index"
 		sql = %{
 				Select r.issue_from_id, r.issue_to_id, t.name, i.subject, s.name As status  
 				From issue_relations r
