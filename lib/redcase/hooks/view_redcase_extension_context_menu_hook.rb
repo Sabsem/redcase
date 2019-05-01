@@ -10,10 +10,13 @@ module Redcase
 					From trackers t
 					Where t.name = 'Test case';
 				}
-				tracks = ActiveRecord::Base.connection.execute(sql)
+				#tracks = ActiveRecord::Base.connection.execute(sql)
+				tracks = ActiveRecord::Base.connection.exec_query(sql).first
 				for i in 0..context[:issues].count-1 do
 					idarr[i]=context[:issues][i][:id]
-					if context[:issues][i][:tracker_id] != tracks[0]["id"].to_i
+					#if context[:issues][i][:tracker_id] != tracks[0]["id"].to_i
+					#if context[:issues][i][:tracker_id].to_i != tracks[0]["id"].to_i
+					if context[:issues][i][:tracker_id] != tracks.to_hash['id']
 						notTestCaseFlag = true
 					end
 				end
@@ -24,12 +27,15 @@ module Redcase
 					tsuites.push(testsuite)	
 					tsuites.each do |item|
 						if item !=nil
-							sql = %{
-								Select *
-								From test_suites
-								Where parent_id=#{item["id"]};
-							}
-							testsuite= ActiveRecord::Base.connection.execute(sql)
+							#val = item.id
+							#sql = %{
+							#	Select *
+							#	From test_suites
+							#	Where parent_id=#{val};
+							#}
+							#testsuite= ActiveRecord::Base.connection.execute(sql)
+							#testsuite= ActiveRecord::Base.connection.exec_query(sql)
+					                testsuite = TestSuite.where(parent_id: item["id"]);
 							testsuite.each do |child|
 								tsuites.push(child)
 							end

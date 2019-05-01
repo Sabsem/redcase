@@ -134,7 +134,8 @@
 					<%= label_tag('Status') %>
 				</td>
 			</tr>
-			<% @relation_join.each do |y| %>
+			<!-- @relation_join.each do |y| -->
+			<% @relation_join.each(:as => :hash) do |y| %>
 				<tr>
 					<td>
 						<%=
