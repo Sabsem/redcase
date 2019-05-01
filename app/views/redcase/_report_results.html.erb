@@ -139,10 +139,10 @@
 					<td>
 						<%=
 							link_to(
-								y[1], {
+								y["issue_to_id"], {
 									:controller => '/issues',
 									:action => :show,
-									:id => y[1]
+									:id => y["issue_to_id"]
 								},
 								:target => '_blank'
 							)
@@ -151,10 +151,10 @@
 					<td>
 						<%=
 							link_to(
-								y[2], {
+								y["name"], {
 									:controller => '/issues',
 									:action => :show,
-									:id => y[1]
+									:id => y["issue_to_id"]
 								},
 								:target => '_blank'
 							)
@@ -163,16 +163,16 @@
 					<td>
 						<%=
 							link_to(
-								y[3], {
+								y["subject"], {
 									:controller => '/issues',
 									:action => :show,
-									:id => y[1]
+									:id => y["issue_to_id"]
 								},
 								:target => '_blank'
 							)
 						%>
 					</td>
-					<td><%=y[4]%></td>
+					<td><%=y["status"]%></td>
 				</tr>
 			<% end %>
 

@@ -47,7 +47,7 @@ class Redcase::ExecutionsuitesController < ApplicationController
 				Where r.issue_from_id In (#{relatedQueryStr});
 			}
 			begin
-				@relation_join = ActiveRecord::Base.connection.execute(sql)
+				@relation_join = ActiveRecord::Base.connection.exec_query(sql)
 				logger.info "done relation join query"
 				@relation_join.each do |x|
 					logger.info x.inspect
