@@ -105,6 +105,8 @@ class Redcase::ExecutionjournalsController < ApplicationController
 			else
 				#TODO more than one exec journal with the time stamp
 			end
+			logger.info "before redirect"
+			logger.info params[:project_id]
 			redirect_to "/projects/#{params[:project_id]}/redcase?tab=Execution" and return
 		end
 	end
