@@ -67,7 +67,7 @@ class RedcaseController < ApplicationController
 				Where r.issue_from_id In (#{relatedQueryStr});
 			}
 			begin
-				@relation_join = ActiveRecord::Base.connection.execute(sql)
+				@relation_join = ActiveRecord::Base.connection.exec_query(sql)
 			rescue => e 
 				@relation_join = nil
 			end
