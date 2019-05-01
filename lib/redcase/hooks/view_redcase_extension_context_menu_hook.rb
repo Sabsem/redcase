@@ -12,7 +12,7 @@ module Redcase
 					From trackers t
 					Where t.name = 'Test case';
 				}
-				tracks = ActiveRecord::Base.connection.execute(sql)
+				tracks = ActiveRecord::Base.connection.exec_query(sql)
 				logger.info tracks.inspect
 				for i in 0..context[:issues].count-1 do
 					idarr[i]=context[:issues][i][:id]
@@ -38,7 +38,7 @@ module Redcase
 								Where parent_id=#{item["id"]};
 							}
 							logger.info "before test suite query"
-							testsuite= ActiveRecord::Base.connection.execute(sql)
+							testsuite= ActiveRecord::Base.connection.exec_query(sql)
 							testsuite.each do |child|
 								logger.info child.inspect
 								tsuites.push(child)

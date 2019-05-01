@@ -32,7 +32,7 @@ class Redcase::ExecutionjournalsController < ApplicationController
 				And a.container_type IS NULL
 				Order By a.id desc;
 			}
-			attachEntry = ActiveRecord::Base.connection.execute(sql)
+			attachEntry = ActiveRecord::Base.connection.exec_query(sql)
 			logger.info "After attachment lookup"
 			attachEntry.each do |x|
 				logger.info x.inspect
@@ -67,7 +67,7 @@ class Redcase::ExecutionjournalsController < ApplicationController
 				Where e.created_on >= '#{formattedDate}' And e.created_on < '#{formattedDateUpper}'
 				And e.executor_id=#{params[:extension_user_id]};
 			}
-			toEditEntry = ActiveRecord::Base.connection.execute(sql)
+			toEditEntry = ActiveRecord::Base.connection.exec_query(sql)
 			logger.info "after journo lookup"
 			logger.info toEditEntry.inspect
 			if toEditEntry.count == 1
@@ -84,7 +84,7 @@ class Redcase::ExecutionjournalsController < ApplicationController
 					Where j.created_on >= '#{formattedDate}' And j.created_on < '#{formattedDateUpper}'
 					And j.user_id=#{params[:extension_user_id]};
 				}
-				toEditIssueJournal = ActiveRecord::Base.connection.execute(sql)
+				toEditIssueJournal = ActiveRecord::Base.connection.exec_query(sql)
 				logger.info "after second journo lookup"
 				logger.info toEditIJournal.inspect
 				if toEditIssueJournal.count==1

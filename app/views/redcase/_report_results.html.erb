@@ -124,13 +124,17 @@
 					<%= label_tag('ID') %>
 
 				</td>
+				<td style="width: 45px; vertical-align: middle; border-left-width: 0px; border-top-width: 0px; padding: 6px">
+					<%= label_tag('Test Case') %>
+
+				</td>
 				<td style="width: 110px; vertical-align: middle; border-top-width: 0px; padding: 6px">
 					<%= label_tag('Tracker') %>
 				</td>
 				<td style="width: 207px; vertical-align: middle; border-top-width: 0px; padding: 6px">
 					<%= label_tag('Name') %>
 				</td>
-				<td style="vertical-align: middle; border-top-width: 0px; padding: 6px; width:140px">
+				<td style="vertical-align: middle; border-top-width: 0px; padding: 6px; width:95px">
 					<%= label_tag('Status') %>
 				</td>
 			</tr>
@@ -143,6 +147,18 @@
 									:controller => '/issues',
 									:action => :show,
 									:id => y["issue_to_id"]
+								},
+								:target => '_blank'
+							)
+						%>
+					</td>
+					<td>
+						<%=
+							link_to(
+								y["issue_from_id"], {
+									:controller => '/issues',
+									:action => :show,
+									:id => y["issue_from_id"]
 								},
 								:target => '_blank'
 							)

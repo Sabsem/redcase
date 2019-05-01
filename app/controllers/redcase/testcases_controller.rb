@@ -17,7 +17,7 @@ class Redcase::TestcasesController < ApplicationController
 			}
 		test_case = TestCase.where({ issue_id: params[:object_id] }).first
 		relation_case = IssueRelation.where({issue_from_id: test_case.issue_id}, {relation_type: 'relates' })
-		relation_join = ActiveRecord::Base.connection.execute(sql)
+		relation_join = ActiveRecord::Base.connection.exec_query(sql)
 		result = {}
 		curr_user = {}
 		curr_user[:id]=User.current.id
