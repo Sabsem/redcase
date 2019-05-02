@@ -58,7 +58,18 @@
 			<td>
 				<h3 id="execution-settings-environment">
 					<%=
-						select_tag(
+						if @environment.nil?
+						   select_tag(
+							'environments',
+							options_for_select(
+								ExecutionEnvironment
+									.order('name asc')
+									.where({ project_id: @project.id })
+									.collect { |res| [res.name, res.id] }
+							)
+						   )
+						else
+						   select_tag(
 							'environments',
 							options_for_select(
 								ExecutionEnvironment
@@ -67,7 +78,8 @@
 									.collect { |res| [res.name, res.id] },
 								@environment.id
 							)
-						)
+						   )
+						end
 					%>
 				</h3>
 			</td>
