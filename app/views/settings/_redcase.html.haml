@@ -2,24 +2,24 @@
   - trackers = Tracker.all.collect{|t| [t.name, t.id]}
   - options = options_for_select(trackers, @settings['testcase_tracker_id'])
   %label
-    = l(:label_test_case_tracker)
+    = l(:label_redcase_test_case_tracker)
   = select_tag 'settings[testcase_tracker_id]', options  
 
 %p
   - statuses = IssueStatus.all.collect{|s| [s.name, s.id]}
   - options = options_for_select(statuses, @settings['testcase_new_status_id'])
   %label
-    = l(:label_test_case_new_status)
+    = l(:label_redcase_test_case_new_status)
   = select_tag 'settings[testcase_new_status_id]', options
 
 %p
   - options = options_for_select(statuses, @settings['testcase_doing_status_id'])
   %label
-    = l(:label_test_case_doing_status)
+    = l(:label_redcase_test_case_doing_status)
   = select_tag 'settings[testcase_doing_status_id]', options
 
 %p
   - options = options_for_select(statuses, @settings['testcase_close_status_id'])
   %label
-    = l(:label_test_case_close_status)
+    = l(:label_redcase_test_case_close_status)
   = select_tag 'settings[testcase_close_status_id]', options
