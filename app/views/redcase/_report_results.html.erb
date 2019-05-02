@@ -37,7 +37,9 @@
 			&nbsp;
 		</td>
 	</tr>
-	<% @results.each do |x| %>
+	<!-- @results.each do |x| -->
+        <% @results.sort{|a,b| [a.test_case.test_suite.name, a.test_case.issue.subject] <=> 
+                               [b.test_case.test_suite.name, b.test_case.issue.subject]}.each do |x| %>
 	<%
 		color = case x.result.name
 			when 'Failed'        then '#ffd8d8'

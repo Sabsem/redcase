@@ -21,7 +21,8 @@ class Excel_Exporter
 			'Comment'
 		]
 		test_cases = test_cases.sort { |a, b|
-			(a.test_suite.name <=> b.test_suite.name)
+#			(a.test_suite.name <=> b.test_suite.name)
+			([a.test_suite.name, a.issue.subject] <=> [b.test_suite.name, b.issue.subject])
 		}
 		test_cases.each { |test_case|
 			if (suite_id.to_i < 0) || test_case.in_suite?(suite_id.to_i, project_id)
