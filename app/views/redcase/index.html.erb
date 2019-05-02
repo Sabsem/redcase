@@ -59,9 +59,9 @@
 	jsCanEdit = <%= User.current.allowed_to?(:edit_test_cases, @project) != false %>;
 </script>
 
-<% html_title l(:label_test_case) %>
+<% html_title l(:label_redcase_test_case) %>
 
-<h2><%= l(:label_test_case) %>
+<h2><%= l(:label_redcase_test_case) %>
     <!-- Temporary plugin version output (only for testing) -->
     <span style="color: gray">
         v<%= Redmine::Plugin.all.detect { |x| x.name == 'Redcase' }.version %>
@@ -79,7 +79,7 @@
 <%= render_tabs get_plugin_tabs(@project) %>
 
 <div id="redcase-dialog" style="display: none">
-	<label for="name"><%= l(:label_name) %>:</label>
+	<label for="name"><%= l(:label_redcase_name) %>:</label>
 	<input type="text"
 	       name="redcase-dialog-value"
 		   id="redcase-dialog-value"

@@ -18,7 +18,7 @@ module RedcaseHelper
 			[{
 				:name => 'Management',
 				:partial => 'redcase/management',
-				:label => :label_test_case_management
+				:label => :label_redcase_test_case_management
 			}]
 		else
 			can_edit = User.current.allowed_to?(:edit_test_cases, project)
@@ -28,17 +28,17 @@ module RedcaseHelper
 			tabs << {
 				:name => 'Management',
 				:partial => 'redcase/management',
-				:label => :label_test_case_management
+				:label => :label_redcase_test_case_management
 			} if can_edit
 			tabs << {
 				:name => 'Execution',
 				:partial => 'redcase/execution',
-				:label => :label_test_case_execution
+				:label => :label_redcase_test_case_execution
 			} if can_execute
 			tabs << {
 				:name => 'Report',
 				:partial => 'redcase/report',
-				:label => :label_test_case_report
+				:label => :label_redcase_test_case_report
 			} if (can_edit || can_execute || can_view )
 			tabs
 		end

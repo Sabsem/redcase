@@ -7,7 +7,7 @@
 			<div id='execution_test_cases_tree_id' class="redcase_tree"/>
 		</td>
 		<td id="execution_test_case_info_id" class="last-cell">
-			<h3><%= l('label_execution_info') %></h3>
+			<h3><%= l('label_redcase_execution_info') %></h3>
 			<div id="test-case-edit" style="display: none">
 				<div id="exec_descr_id"
 				     class="issue status-2 priority-2 created-by-me details">
@@ -18,7 +18,7 @@
 						</div>
 					</h2>
 					<div style="font-weight: bold">
-						<%= l('label_description') %>:
+						<%= l('label_redcase_description') %>:
 					</div>
 					<div id="test-case-desc" class="wiki"></div>
 					<div id="test-case-attach" class="wiki"></div>
@@ -32,7 +32,7 @@
 						<%= submit_tag("Submit") %>
 					<% end %>
 				</div>
-				<%= l('label_comment') %>:
+				<%= l('label_redcase_comment') %>:
 				<br/>
 				<%=
 					text_area_tag(
@@ -43,7 +43,7 @@
 					)
 				%>
 				<br/>
-				<%= l('label_result') %>:
+				<%= l('label_redcase_result') %>:
 				<%=
 					select_tag(
 						'results',
@@ -57,7 +57,7 @@
 				&nbsp;
 				<%=
 					submit_tag(
-						l(:label_button_save),
+						l(:label_redcase_button_save),
 						:onclick => 'Redcase.executionTree.execute()'
 					)
 				%>
@@ -81,7 +81,7 @@
 		<td>
 			<fieldset class="tabular redcase-content" style="height: auto">
 				<legend class="redcase-header">
-					<%= l('label_history') %>
+					<%= l('label_redcase_history') %>
 				</legend>
 				
 				<div id="all-results"></div>

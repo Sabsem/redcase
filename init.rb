@@ -14,7 +14,8 @@ Redmine::Plugin.register :redcase do
 	author 'Bugzinga Team'
 	version '1.0'
 
-	permission :view_test_cases, {
+        project_module :redcase do	
+	   permission :view_test_cases, {
 		:redcase => [
 			:index,
 			:get_attachment_urls
@@ -44,9 +45,9 @@ Redmine::Plugin.register :redcase do
 		'redcase/combos' => [
 			:index
 		]
-	}
+	   }
 
-	permission :edit_test_cases, {
+	   permission :edit_test_cases, {
 		:redcase => [
 			:index,
 			:get_attachment_urls
@@ -88,9 +89,9 @@ Redmine::Plugin.register :redcase do
 		'redcase/combos' => [
 			:index
 		]
-	}
+	   }
 
-	permission :execute_test_cases, {
+	   permission :execute_test_cases, {
 		:redcase => [
 			:index,
 			:get_attachment_urls
@@ -114,7 +115,8 @@ Redmine::Plugin.register :redcase do
 		'redcase/executionsuites' => [
 			:index
 		]
-	}
+	   }
+	end
 
 	menu :project_menu,
 		:redcase, {
@@ -126,7 +128,7 @@ Redmine::Plugin.register :redcase do
 				can_edit = User.current.allowed_to?(:edit_test_cases, p)
 				can_view || can_edit
 			},
-			:caption => :label_test_case,
+			:caption => :label_redcase_test_case,
 			:after => :new_issue
 		}
 
