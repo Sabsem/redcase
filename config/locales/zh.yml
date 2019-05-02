@@ -26,3 +26,4 @@ zh:
   label_test_case_new_status          : "测试用例新建状态："
   label_test_case_doing_status        : "测试用例进行中状态："
   label_test_case_close_status        : "测试用例已关闭状态："
+  label_add_to_test_suite	      : "加入测试集"

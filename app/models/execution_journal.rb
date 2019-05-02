@@ -13,7 +13,7 @@ class ExecutionJournal < ActiveRecord::Base
 	#       (https://github.com/rails/jbuilder)
 	def to_json
 	{
-		'created_on'  => created_on.strftime('%d.%m.%Y %H:%M:%S'),
+		'created_on'  => created_on.in_time_zone(User.current.time_zone).strftime('%d.%m.%Y %H:%M:%S'),
 		'result'      => result.name,
 		'comment'     => comment,
 		'executor'    => (executor.nil? ? '' : executor.name),

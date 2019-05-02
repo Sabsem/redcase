@@ -49,9 +49,11 @@ module Redcase
 						end
 					end
 
+					subMenuName = l('label_add_to_test_suite')
 					return %{
 						<li class="folder">
-							<a href="#" class="submenu">Add to Test Suite</a>
+							<!-- <a href="#" class="submenu">Add to Test Suite</a> -->
+							<a href="#" class="submenu">#{subMenuName}</a>
 							<ul>
 								#{listItems}	
 							</ul>

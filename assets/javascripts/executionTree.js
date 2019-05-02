@@ -203,7 +203,7 @@ var RedcaseExecutionTree = function($) {
 		var unique = {};
 		var txt = "<table id='redcase-history-table' class='redcase-row' width='100%'>"
 			+ "<tr style='font-weight: bold; background-color: #eeeeee'>"
-			+ "<td>date (UTC)</td>"
+			+ "<td>date</td>"
 			+ "<td>result</td>"
 			+ "<td>comments</td>"
 			+ "<td>executor</td>"
