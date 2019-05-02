@@ -14,12 +14,14 @@ class RedcaseController < ApplicationController
 		#       available versions. That can be used, or the class can be
 		#       extended to provide a move convenient method.
 		#       -- Example: @project.last_version
-		@version = Version
-			.order('created_on desc')
-			.find_by_project_id(@project.id)
+		@version = !params[:version].nil? ?
+			Version.find_by_name_and_project_id(params[:version],@project.id) :
+			Version.order('created_on desc').find_by_project_id(@project.id)
 		# TODO: Request a default environment from a project.
 		#       -- Example: @project.default_environment
-		@environment = ExecutionEnvironment.get_default_for_project(@project)
+		@environment = !params[:enviroment].nil? ?
+		    ExecutionEnvironment.find_by_name_and_project_id(params[:enviroment],@project.id) :
+		    ExecutionEnvironment.get_default_for_project(@project)
 		# TODO: Move maintenance() method in here as it seems to be not test
 		#       case specific, but rather provides general kind of
 		#       functionality. Or move it to some shared plugin entry point.

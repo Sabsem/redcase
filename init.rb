@@ -124,12 +124,13 @@ Redmine::Plugin.register :redcase do
 			:if => proc { |p|
 				can_view = User.current.allowed_to?(:view_test_cases, p)
 				can_edit = User.current.allowed_to?(:edit_test_cases, p)
-				tracker_exists = p.trackers.any? { |t| (t.name == 'Test case') }
-				(can_view || can_edit) && tracker_exists
+				can_view || can_edit
 			},
-			:caption => 'Test cases',
+			:caption => :label_test_case,
 			:after => :new_issue
 		}
+
+	settings partial: 'settings/redcase', default: {:testcase_tracker_id => '2', :testcase_new_status_id => '1', :testcase_doing_status_id => '2', :testcase_close_status_id => '5'}
 
 	Rails.configuration.to_prepare do
 		Issue.send :include, IssuePatch

@@ -64,7 +64,8 @@
 								ExecutionEnvironment
 									.order('name asc')
 									.where({ project_id: @project.id })
-									.collect { |res| [res.name, res.id] }
+									.collect { |res| [res.name, res.id] },
+								@environment.id
 							)
 						)
 					%>
