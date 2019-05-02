@@ -25,6 +25,7 @@ class Rtf_Exporter
 	def self.getTestCases(suite_id, project)
 		issues = Issue.where({ project_id: project.id }).collect { |i| i.id }
 		test_cases = TestCase.where({ issue_id: issues })
+		                     .sort { |a, b| ([a.test_suite.name, a.issue.subject] <=> [b.test_suite.name, b.issue.subject])}
 		if suite_id >= 0
 			test_cases = test_cases.select { |tc|
 				tc.in_suite?(suite_id, project.id)
