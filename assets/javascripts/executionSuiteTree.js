@@ -408,7 +408,7 @@ var RedcaseExecutionSuiteTree = function($) {
 		newInstance,
 		oldInstance
 	) {
-		if (orgNode.original.status.name === 'In Progress') {
+		if ((orgNode.original.status.name === 'In Progress')||(orgNode.original.status.name === 'Ready to Run')||(orgNode.original.status.name=== 'Automation In Progress')) {
 			newNode.original = orgNode.original;
 			newInstance.set_id(newNode, orgNode.id);
 			var apiParms = $.extend(
