@@ -2,7 +2,7 @@
 class Redcase::ExecutionsuitesController < ApplicationController
 
 	unloadable
-	before_filter :find_project, :authorize
+	before_action :find_project, :authorize
 
 	def index
 		if params[:get_results].nil?

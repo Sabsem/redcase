@@ -2,7 +2,7 @@
 class Redcase::ExecutionjournalsController < ApplicationController
 
 	unloadable
-	before_filter :find_project, :authorize, :except=>[:update, :edit]
+	before_action :find_project, :authorize, :except=>[:update, :edit]
 
 	def index
 		journals =
