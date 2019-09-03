@@ -2,7 +2,7 @@
 class Redcase::TestcasesController < ApplicationController
 
 	unloadable
-	before_action :find_project, :authorize
+	before_filter :find_project, :authorize
 
 	def index
 		# TODO: What if there is none? r.issue_from_id, r.issue_to_id, t.name

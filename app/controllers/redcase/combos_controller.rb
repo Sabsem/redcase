@@ -7,8 +7,7 @@ class Redcase::CombosController < ApplicationController
 
 	unloadable
 	helper RedcaseHelper
-	before_action :find_project, :authorize, :except=> [:show]
-
+	before_filter :find_project, :authorize, :except=> [:show]
 
 	def index
 		@environment =
